@@ -1,13 +1,19 @@
-function printMessage(msg){
+const printMessage = function(msg){
 	let div = document.createElement('div');
 	div.innerHTML = msg;
 	document.getElementById('messages').appendChild(div);
 }
-
-function clearMessages(){
-	document.getElementById('messages').innerHTML = '';
+const printResults = function(player, computer){
+	let div = document.createElement('div');
+	div.innerHTML = "Player: " + player + " - Computer: " + computer ;
+	document.getElementById('result').appendChild(div);	
 }
-function getMoveName(choice) {
+
+const clearMessages = function(){
+	document.getElementById('messages').innerHTML = '';
+	document.getElementById('result').innerHTML = '';
+}
+const getMoveName = function(choice) {
 	if ( choice == 1 ) {
 		return `stone`;
 	}
@@ -18,7 +24,7 @@ function getMoveName(choice) {
 		return `scissors`;
 	}
 }
-function displayResult(argComputerMove, argPlayerMove) {
+const displayResult = function(argComputerMove, argPlayerMove) {
 	if (argPlayerMove == ``) {
 		printMessage(`Unknown move`);
 	}
@@ -26,19 +32,24 @@ function displayResult(argComputerMove, argPlayerMove) {
 		printMessage('It is a draw Computer move: ' + argComputerMove + `- Player move: ` + argPlayerMove);
 	}
 	else if( argComputerMove == 'stone' && argPlayerMove == 'paper'){
+		playerResult += 1;
+		console.log(`playerResult`, playerResult)
 		printMessage('You win! Computer move: ' + argComputerMove + `- Player move: ` + argPlayerMove);
 	} 
 	else if( argComputerMove == 'paper' && argPlayerMove == 'scissors'){
+		playerResult += 1;
 		printMessage('You win! Computer move: ' + argComputerMove + `- Player move: ` + argPlayerMove);
 	} 
 	else if( argComputerMove == 'scissors' && argPlayerMove == 'stone'){
+		playerResult += 1;
 		printMessage('You win! Computer move: ' + argComputerMove + `- Player move: ` + argPlayerMove);
 	} 
 	else {
+		computerResult += 1;
 		printMessage('You lose! Computer move: ' + argComputerMove + `- Player move: ` + argPlayerMove);  
 	}
 }
-function playGame(playerNumber) {
+const playGame = function(playerNumber) {
 	clearMessages();
 	let randomNumber = Math.floor(Math.random()*3+1);
 	let computerMove = getMoveName(randomNumber);
@@ -64,6 +75,7 @@ function playGame(playerNumber) {
 	//     playerMove = `scissors`;
 	// }
 	// console.log(playerMove);
-	displayResult(computerMove, playerMove)
+	displayResult(computerMove, playerMove);
+	printResults(playerResult, computerResult);
 
 }
